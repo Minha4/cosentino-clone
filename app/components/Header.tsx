@@ -58,49 +58,21 @@ const spaces = [
     name: "Kitchens",
     image:
       "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85",
-    items: [
-      "Countertops",
-      "Cladding and coverings",
-      "Sinks",
-      "Floors",
-      "Furniture",
-    ],
   },
   {
     name: "Bathrooms",
     image:
       "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1200&q=85",
-    items: [
-      "Countertops",
-      "Bathroom sinks",
-      "Shower trays",
-      "Cladding",
-      "Floors",
-    ],
   },
   {
     name: "Other interiors",
     image:
       "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=85",
-    items: [
-      "Furniture",
-      "Flooring",
-      "Cladding",
-      "Tables",
-      "Interior applications",
-    ],
   },
   {
     name: "Outdoors",
     image:
       "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=85",
-    items: [
-      "Facades",
-      "Outdoor kitchens",
-      "Outdoor flooring",
-      "Furniture",
-      "Pools",
-    ],
   },
 ];
 
@@ -109,36 +81,16 @@ const inspiration = [
     name: "Inspiration Gallery",
     image:
       "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1200&q=85",
-    items: [
-      "Bathrooms",
-      "Kitchens",
-      "Interior spaces",
-      "Outdoors",
-      "Facades",
-      "Commercial",
-    ],
   },
   {
     name: "Projects",
     image:
       "https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=1200&q=85",
-    items: [
-      "Residential",
-      "Commercial",
-      "Hospitality",
-      "Architecture",
-    ],
   },
   {
     name: "Design Tools",
     image:
       "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1200&q=85",
-    items: [
-      "Kitchen visualizer",
-      "Bathroom visualizer",
-      "Moodboards",
-      "Color tools",
-    ],
   },
 ];
 
@@ -250,33 +202,6 @@ function Chevron({ open = false }: { open?: boolean }) {
   );
 }
 
-function MenuButton({
-  label,
-  menu,
-  openMenu,
-  setOpenMenu,
-}: {
-  label: string;
-  menu: Exclude<MenuName, "country" | null>;
-  openMenu: MenuName;
-  setOpenMenu: (menu: MenuName) => void;
-}) {
-  const active = openMenu === menu;
-
-  return (
-    <button
-      type="button"
-      onMouseEnter={() => setOpenMenu(menu)}
-      className={`flex items-center gap-1 text-[12px] transition-opacity duration-300 ${
-        openMenu && !active ? "opacity-35" : "opacity-100"
-      } hover:opacity-60`}
-    >
-      {label}
-      <Chevron open={active} />
-    </button>
-  );
-}
-
 export default function Header() {
   const [openMenu, setOpenMenu] = useState<MenuName>(null);
   const [country, setCountry] = useState("USA");
@@ -294,16 +219,12 @@ export default function Header() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-[100] text-white">
-      {/* =========================
-          DESKTOP HEADER
-      ========================== */}
+      {/* DESKTOP HEADER */}
       <div
         className="hidden bg-gradient-to-b from-black/35 via-black/10 to-transparent px-8 pb-8 pt-7 md:block"
         onMouseLeave={() => setOpenMenu(null)}
       >
         <div className="mx-auto flex max-w-[1650px] items-center">
-
-          {/* LOGO */}
           <a
             href="https://www.cosentino.com/usa/"
             className="shrink-0 text-[20px] font-normal leading-none tracking-[-0.075em]"
@@ -311,15 +232,13 @@ export default function Header() {
             COSENTINO
           </a>
 
-          {/* DIVIDER */}
           <span className="mx-5 h-[18px] w-px bg-white/80" />
 
-          {/* COUNTRY */}
           <div className="relative shrink-0">
             <button
               type="button"
               onMouseEnter={() => setOpenMenu("country")}
-              className="flex items-center gap-2 text-[12px] transition-opacity duration-300 hover:opacity-60"
+              className="flex items-center gap-2 text-[12px] transition-opacity hover:opacity-60"
             >
               <GlobeIcon />
               <span>{country}</span>
@@ -358,7 +277,6 @@ export default function Header() {
             )}
           </div>
 
-          {/* MAIN NAV */}
           <nav className="ml-12 flex flex-1 items-center justify-center gap-7 whitespace-nowrap">
             <a
               href="https://www.cosentino.com/usa/colors/"
@@ -367,26 +285,32 @@ export default function Header() {
               Colors
             </a>
 
-            <MenuButton
-              label="Our Brands"
-              menu="brands"
-              openMenu={openMenu}
-              setOpenMenu={setOpenMenu}
-            />
+            <button
+              type="button"
+              onMouseEnter={() => setOpenMenu("brands")}
+              className="flex items-center gap-1 text-[12px]"
+            >
+              Our Brands
+              <Chevron open={openMenu === "brands"} />
+            </button>
 
-            <MenuButton
-              label="Spaces"
-              menu="spaces"
-              openMenu={openMenu}
-              setOpenMenu={setOpenMenu}
-            />
+            <button
+              type="button"
+              onMouseEnter={() => setOpenMenu("spaces")}
+              className="flex items-center gap-1 text-[12px]"
+            >
+              Spaces
+              <Chevron open={openMenu === "spaces"} />
+            </button>
 
-            <MenuButton
-              label="Inspiration"
-              menu="inspiration"
-              openMenu={openMenu}
-              setOpenMenu={setOpenMenu}
-            />
+            <button
+              type="button"
+              onMouseEnter={() => setOpenMenu("inspiration")}
+              className="flex items-center gap-1 text-[12px]"
+            >
+              Inspiration
+              <Chevron open={openMenu === "inspiration"} />
+            </button>
 
             <a
               href="https://www.cosentino.com/usa/professional/cosentino-city/"
@@ -395,22 +319,25 @@ export default function Header() {
               Showrooms
             </a>
 
-            <MenuButton
-              label="Professionals"
-              menu="professionals"
-              openMenu={openMenu}
-              setOpenMenu={setOpenMenu}
-            />
+            <button
+              type="button"
+              onMouseEnter={() => setOpenMenu("professionals")}
+              className="flex items-center gap-1 text-[12px]"
+            >
+              Professionals
+              <Chevron open={openMenu === "professionals"} />
+            </button>
 
-            <MenuButton
-              label="Corporate"
-              menu="corporate"
-              openMenu={openMenu}
-              setOpenMenu={setOpenMenu}
-            />
+            <button
+              type="button"
+              onMouseEnter={() => setOpenMenu("corporate")}
+              className="flex items-center gap-1 text-[12px]"
+            >
+              Corporate
+              <Chevron open={openMenu === "corporate"} />
+            </button>
           </nav>
 
-          {/* RIGHT NAV */}
           <div className="ml-12 flex shrink-0 items-center gap-7 whitespace-nowrap">
             <a
               href="https://www.cosentino.com/usa/where-to-buy/"
@@ -427,234 +354,200 @@ export default function Header() {
             </a>
           </div>
         </div>
+
+        {/* COUNTRY MENU */}
+        {openMenu === "country" && <div className="h-1" />}
+
+        {/* BRANDS MENU */}
+        {openMenu === "brands" && (
+          <div
+            className="border-t border-black/10 bg-white text-black shadow-2xl"
+            onMouseEnter={() => setOpenMenu("brands")}
+          >
+            <div className="mx-auto max-w-[1650px] px-8 py-10">
+              <div className="grid grid-cols-5 gap-5">
+                {brands.map((item) => (
+                  <a key={item.name} href="#" className="group">
+                    <div className="h-[200px] overflow-hidden">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                      />
+                    </div>
+
+                    <div className="mt-4 flex items-center justify-between">
+                      <h3 className="text-[20px] font-light">{item.name}</h3>
+                      <span>→</span>
+                    </div>
+
+                    <p className="mt-2 text-[12px] leading-5 text-neutral-500">
+                      {item.description}
+                    </p>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* SPACES MENU */}
+        {openMenu === "spaces" && (
+          <div
+            className="border-t border-black/10 bg-white text-black shadow-2xl"
+            onMouseEnter={() => setOpenMenu("spaces")}
+          >
+            <div className="mx-auto max-w-[1650px] px-8 py-10">
+              <div className="grid grid-cols-4 gap-6">
+                {spaces.map((item) => (
+                  <a key={item.name} href="#" className="group">
+                    <div className="h-[210px] overflow-hidden">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                      />
+                    </div>
+
+                    <div className="mt-4 flex items-center justify-between">
+                      <h3 className="text-[20px] font-light">{item.name}</h3>
+                      <span>→</span>
+                    </div>
+
+                    <div className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2">
+                      <span className="text-[12px] text-neutral-500">
+                        Countertops
+                      </span>
+                      <span className="text-[12px] text-neutral-500">
+                        Cladding
+                      </span>
+                      <span className="text-[12px] text-neutral-500">
+                        Flooring
+                      </span>
+                      <span className="text-[12px] text-neutral-500">
+                        Furniture
+                      </span>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* INSPIRATION MENU */}
+        {openMenu === "inspiration" && (
+          <div
+            className="border-t border-black/10 bg-white text-black shadow-2xl"
+            onMouseEnter={() => setOpenMenu("inspiration")}
+          >
+            <div className="mx-auto max-w-[1650px] px-8 py-10">
+              <div className="grid grid-cols-3 gap-6">
+                {inspiration.map((item) => (
+                  <a key={item.name} href="#" className="group">
+                    <div className="h-[230px] overflow-hidden">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                      />
+                    </div>
+
+                    <div className="mt-4 flex items-center justify-between">
+                      <h3 className="text-[21px] font-light">{item.name}</h3>
+                      <span>→</span>
+                    </div>
+
+                    <div className="mt-4 grid grid-cols-2 gap-x-6 gap-y-2">
+                      <span className="text-[12px] text-neutral-500">
+                        Kitchens
+                      </span>
+                      <span className="text-[12px] text-neutral-500">
+                        Bathrooms
+                      </span>
+                      <span className="text-[12px] text-neutral-500">
+                        Outdoors
+                      </span>
+                      <span className="text-[12px] text-neutral-500">
+                        Projects
+                      </span>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* PROFESSIONALS MENU */}
+        {openMenu === "professionals" && (
+          <div
+            className="border-t border-black/10 bg-white text-black shadow-2xl"
+            onMouseEnter={() => setOpenMenu("professionals")}
+          >
+            <div className="mx-auto max-w-[1650px] px-8 py-10">
+              <div className="grid grid-cols-5 gap-5">
+                {professionals.map((item) => (
+                  <a key={item.name} href="#" className="group">
+                    <div className="h-[195px] overflow-hidden">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                      />
+                    </div>
+
+                    <div className="mt-4 flex items-center justify-between">
+                      <h3 className="text-[18px] font-light">{item.name}</h3>
+                      <span>→</span>
+                    </div>
+
+                    <p className="mt-2 text-[12px] text-neutral-500">
+                      {item.description}
+                    </p>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* CORPORATE MENU */}
+        {openMenu === "corporate" && (
+          <div
+            className="border-t border-black/10 bg-white text-black shadow-2xl"
+            onMouseEnter={() => setOpenMenu("corporate")}
+          >
+            <div className="mx-auto max-w-[1650px] px-8 py-10">
+              <div className="grid grid-cols-4 gap-6">
+                {corporate.map((item) => (
+                  <a key={item.name} href="#" className="group">
+                    <div className="h-[220px] overflow-hidden">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                      />
+                    </div>
+
+                    <div className="mt-4 flex items-center justify-between">
+                      <h3 className="text-[20px] font-light">{item.name}</h3>
+                      <span>→</span>
+                    </div>
+
+                    <p className="mt-2 text-[12px] text-neutral-500">
+                      {item.description}
+                    </p>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
-      {/* =========================
-          DESKTOP MEGA MENUS
-      ========================== */}
-
-      {/* BRANDS */}
-      {openMenu === "brands" && (
-        <div
-          className="hidden border-t border-black/10 bg-white text-black shadow-2xl md:block"
-          onMouseEnter={() => setOpenMenu("brands")}
-        >
-          <div className="mx-auto max-w-[1650px] px-8 py-10">
-            <div className="grid grid-cols-5 gap-5">
-              {brands.map((brand) => (
-                <a
-                  href="#"
-                  key={brand.name}
-                  className="group"
-                >
-                  <div className="relative h-[200px] overflow-hidden">
-                    <img
-                      src={brand.image}
-                      alt={brand.name}
-                      className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
-                    />
-
-                    <div className="absolute inset-0 bg-black/15 transition group-hover:bg-black/5" />
-                  </div>
-
-                  <div className="mt-4 flex items-center justify-between">
-                    <h3 className="text-[20px] font-light">
-                      {brand.name}
-                    </h3>
-
-                    <span className="transition-transform duration-300 group-hover:translate-x-1">
-                      →
-                    </span>
-                  </div>
-
-                  <p className="mt-2 text-[12px] leading-5 text-neutral-500">
-                    {brand.description}
-                  </p>
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* SPACES */}
-      {openMenu === "spaces" && (
-        <div
-          className="hidden border-t border-black/10 bg-white text-black shadow-2xl md:block"
-          onMouseEnter={() => setOpenMenu("spaces")}
-        >
-          <div className="mx-auto max-w-[1650px] px-8 py-10">
-            <div className="grid grid-cols-4 gap-6">
-              {spaces.map((space) => (
-                <div key={space.name} className="group">
-                  <div className="h-[210px] overflow-hidden">
-                    <img
-                      src={space.image}
-                      alt={space.name}
-                      className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
-                    />
-                  </div>
-
-                  <div className="mt-4 flex items-center justify-between">
-                    <h3 className="text-[20px] font-light">
-                      {space.name}
-                    </h3>
-
-                    <span className="transition-transform duration-300 group-hover:translate-x-1">
-                      →
-                    </span>
-                  </div>
-
-                  <div className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2">
-                    {space.items.map((item) => (
-                      <a
-                        href="#"
-                        key={item}
-                        className="text-[12px] text-neutral-500 transition hover:text-black"
-                      >
-                        {item}
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* INSPIRATION */}
-      {openMenu === "inspiration" && (
-        <div
-          className="hidden border-t border-black/10 bg-white text-black shadow-2xl md:block"
-          onMouseEnter={() => setOpenMenu("inspiration")}
-        >
-          <div className="mx-auto max-w-[1650px] px-8 py-10">
-            <div className="grid grid-cols-3 gap-6">
-              {inspiration.map((item) => (
-                <div key={item.name} className="group">
-                  <div className="h-[230px] overflow-hidden">
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
-                    />
-                  </div>
-
-                  <div className="mt-4 flex items-center justify-between">
-                    <h3 className="text-[21px] font-light">
-                      {item.name}
-                    </h3>
-
-                    <span>→</span>
-                  </div>
-
-                  <div className="mt-4 grid grid-cols-2 gap-x-6 gap-y-2">
-                    {item.items.map((subItem) => (
-                      <a
-                        href="#"
-                        key={subItem}
-                        className="text-[12px] text-neutral-500 transition hover:text-black"
-                      >
-                        {subItem}
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* PROFESSIONALS */}
-      {openMenu === "professionals" && (
-        <div
-          className="hidden border-t border-black/10 bg-white text-black shadow-2xl md:block"
-          onMouseEnter={() => setOpenMenu("professionals")}
-        >
-          <div className="mx-auto max-w-[1650px] px-8 py-10">
-            <div className="grid grid-cols-5 gap-5">
-              {professionals.map((item) => (
-                <a
-                  href="#"
-                  key={item.name}
-                  className="group"
-                >
-                  <div className="h-[195px] overflow-hidden">
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
-                    />
-                  </div>
-
-                  <div className="mt-4 flex items-center justify-between">
-                    <h3 className="text-[18px] font-light">
-                      {item.name}
-                    </h3>
-
-                    <span className="transition-transform duration-300 group-hover:translate-x-1">
-                      →
-                    </span>
-                  </div>
-
-                  <p className="mt-2 text-[12px] leading-5 text-neutral-500">
-                    {item.description}
-                  </p>
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* CORPORATE */}
-      {openMenu === "corporate" && (
-        <div
-          className="hidden border-t border-black/10 bg-white text-black shadow-2xl md:block"
-          onMouseEnter={() => setOpenMenu("corporate")}
-        >
-          <div className="mx-auto max-w-[1650px] px-8 py-10">
-            <div className="grid grid-cols-4 gap-6">
-              {corporate.map((item) => (
-                <a
-                  href="#"
-                  key={item.name}
-                  className="group"
-                >
-                  <div className="h-[220px] overflow-hidden">
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
-                    />
-                  </div>
-
-                  <div className="mt-4 flex items-center justify-between">
-                    <h3 className="text-[20px] font-light">
-                      {item.name}
-                    </h3>
-
-                    <span className="transition-transform duration-300 group-hover:translate-x-1">
-                      →
-                    </span>
-                  </div>
-
-                  <p className="mt-2 text-[12px] leading-5 text-neutral-500">
-                    {item.description}
-                  </p>
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* =========================
-          MOBILE HEADER
-      ========================== */}
-      <div className="block bg-gradient-to-b from-black/40 via-black/10 to-transparent px-5 py-5 md:hidden">
+      {/* MOBILE HEADER */}
+      <div className="bg-gradient-to-b from-black/40 via-black/10 to-transparent px-5 py-5 md:hidden">
         <div className="flex items-center justify-between">
           <a
             href="https://www.cosentino.com/usa/"
@@ -673,19 +566,17 @@ export default function Header() {
             className="relative h-10 w-10"
           >
             <span
-              className={`absolute left-2 top-3 h-px w-6 bg-white transition duration-300 ${
+              className={`absolute left-2 top-3 h-px w-6 bg-white transition ${
                 mobileOpen ? "translate-y-2 rotate-45" : ""
               }`}
             />
-
             <span
-              className={`absolute left-2 top-5 h-px w-6 bg-white transition duration-300 ${
+              className={`absolute left-2 top-5 h-px w-6 bg-white transition ${
                 mobileOpen ? "opacity-0" : ""
               }`}
             />
-
             <span
-              className={`absolute left-2 top-7 h-px w-6 bg-white transition duration-300 ${
+              className={`absolute left-2 top-7 h-px w-6 bg-white transition ${
                 mobileOpen ? "-translate-y-2 -rotate-45" : ""
               }`}
             />
@@ -693,35 +584,34 @@ export default function Header() {
         </div>
 
         {mobileOpen && (
-          <div className="mt-5 max-h-[calc(100vh-90px)] overflow-y-auto border-t border-white/20 pt-3">
-            {/* COLORS */}
+          <div className="mt-5 max-h-[calc(100vh-90px)] overflow-y-auto border-t border-white/20 pt-2">
             <a
               href="https://www.cosentino.com/usa/colors/"
-              onClick={closeMobile}
               className="block border-b border-white/15 py-4 text-[14px]"
+              onClick={closeMobile}
             >
               Colors
             </a>
 
-            {/* BRANDS */}
+            {/* MOBILE BRANDS */}
             <div className="border-b border-white/15">
               <button
                 type="button"
                 onClick={() => toggleMobileSubmenu("brands")}
                 className="flex w-full items-center justify-between py-4 text-[14px]"
               >
-                <span>Our Brands</span>
+                Our Brands
                 <Chevron open={mobileSubmenu === "brands"} />
               </button>
 
               {mobileSubmenu === "brands" && (
-                <div className="grid grid-cols-2 gap-3 pb-5">
+                <div className="grid grid-cols-2 gap-3 pb-4">
                   {brands.map((item) => (
                     <a
                       href="#"
                       key={item.name}
-                      onClick={closeMobile}
                       className="group"
+                      onClick={closeMobile}
                     >
                       <div className="h-28 overflow-hidden">
                         <img
@@ -730,35 +620,32 @@ export default function Header() {
                           className="h-full w-full object-cover"
                         />
                       </div>
-
-                      <p className="mt-2 text-[12px]">
-                        {item.name}
-                      </p>
+                      <p className="mt-2 text-[12px]">{item.name}</p>
                     </a>
                   ))}
                 </div>
               )}
             </div>
 
-            {/* SPACES */}
+            {/* MOBILE SPACES */}
             <div className="border-b border-white/15">
               <button
                 type="button"
                 onClick={() => toggleMobileSubmenu("spaces")}
                 className="flex w-full items-center justify-between py-4 text-[14px]"
               >
-                <span>Spaces</span>
+                Spaces
                 <Chevron open={mobileSubmenu === "spaces"} />
               </button>
 
               {mobileSubmenu === "spaces" && (
-                <div className="grid grid-cols-2 gap-3 pb-5">
+                <div className="grid grid-cols-2 gap-3 pb-4">
                   {spaces.map((item) => (
                     <a
                       href="#"
                       key={item.name}
-                      onClick={closeMobile}
                       className="group"
+                      onClick={closeMobile}
                     >
                       <div className="h-28 overflow-hidden">
                         <img
@@ -767,47 +654,41 @@ export default function Header() {
                           className="h-full w-full object-cover"
                         />
                       </div>
-
-                      <p className="mt-2 text-[12px]">
-                        {item.name}
-                      </p>
+                      <p className="mt-2 text-[12px]">{item.name}</p>
                     </a>
                   ))}
                 </div>
               )}
             </div>
 
-            {/* INSPIRATION */}
+            {/* MOBILE INSPIRATION */}
             <div className="border-b border-white/15">
               <button
                 type="button"
                 onClick={() => toggleMobileSubmenu("inspiration")}
                 className="flex w-full items-center justify-between py-4 text-[14px]"
               >
-                <span>Inspiration</span>
+                Inspiration
                 <Chevron open={mobileSubmenu === "inspiration"} />
               </button>
 
               {mobileSubmenu === "inspiration" && (
-                <div className="grid grid-cols-1 gap-4 pb-5">
+                <div className="grid grid-cols-1 gap-3 pb-4">
                   {inspiration.map((item) => (
                     <a
                       href="#"
                       key={item.name}
-                      onClick={closeMobile}
                       className="group"
+                      onClick={closeMobile}
                     >
-                      <div className="h-36 overflow-hidden">
+                      <div className="h-32 overflow-hidden">
                         <img
                           src={item.image}
                           alt={item.name}
                           className="h-full w-full object-cover"
                         />
                       </div>
-
-                      <p className="mt-2 text-[13px]">
-                        {item.name}
-                      </p>
+                      <p className="mt-2 text-[12px]">{item.name}</p>
                     </a>
                   ))}
                 </div>
@@ -817,31 +698,31 @@ export default function Header() {
             {/* SHOWROOMS */}
             <a
               href="https://www.cosentino.com/usa/professional/cosentino-city/"
-              onClick={closeMobile}
               className="block border-b border-white/15 py-4 text-[14px]"
+              onClick={closeMobile}
             >
               Showrooms
             </a>
 
-            {/* PROFESSIONALS */}
+            {/* MOBILE PROFESSIONALS */}
             <div className="border-b border-white/15">
               <button
                 type="button"
                 onClick={() => toggleMobileSubmenu("professionals")}
                 className="flex w-full items-center justify-between py-4 text-[14px]"
               >
-                <span>Professionals</span>
+                Professionals
                 <Chevron open={mobileSubmenu === "professionals"} />
               </button>
 
               {mobileSubmenu === "professionals" && (
-                <div className="grid grid-cols-2 gap-3 pb-5">
+                <div className="grid grid-cols-2 gap-3 pb-4">
                   {professionals.map((item) => (
                     <a
                       href="#"
                       key={item.name}
-                      onClick={closeMobile}
                       className="group"
+                      onClick={closeMobile}
                     >
                       <div className="h-28 overflow-hidden">
                         <img
@@ -850,35 +731,32 @@ export default function Header() {
                           className="h-full w-full object-cover"
                         />
                       </div>
-
-                      <p className="mt-2 text-[12px]">
-                        {item.name}
-                      </p>
+                      <p className="mt-2 text-[12px]">{item.name}</p>
                     </a>
                   ))}
                 </div>
               )}
             </div>
 
-            {/* CORPORATE */}
+            {/* MOBILE CORPORATE */}
             <div className="border-b border-white/15">
               <button
                 type="button"
                 onClick={() => toggleMobileSubmenu("corporate")}
                 className="flex w-full items-center justify-between py-4 text-[14px]"
               >
-                <span>Corporate</span>
+                Corporate
                 <Chevron open={mobileSubmenu === "corporate"} />
               </button>
 
               {mobileSubmenu === "corporate" && (
-                <div className="grid grid-cols-2 gap-3 pb-5">
+                <div className="grid grid-cols-2 gap-3 pb-4">
                   {corporate.map((item) => (
                     <a
                       href="#"
                       key={item.name}
-                      onClick={closeMobile}
                       className="group"
+                      onClick={closeMobile}
                     >
                       <div className="h-28 overflow-hidden">
                         <img
@@ -887,10 +765,7 @@ export default function Header() {
                           className="h-full w-full object-cover"
                         />
                       </div>
-
-                      <p className="mt-2 text-[12px]">
-                        {item.name}
-                      </p>
+                      <p className="mt-2 text-[12px]">{item.name}</p>
                     </a>
                   ))}
                 </div>
@@ -900,8 +775,8 @@ export default function Header() {
             {/* WHERE TO BUY */}
             <a
               href="https://www.cosentino.com/usa/where-to-buy/"
-              onClick={closeMobile}
               className="block border-b border-white/15 py-4 text-[14px]"
+              onClick={closeMobile}
             >
               Where To Buy
             </a>
@@ -909,13 +784,13 @@ export default function Header() {
             {/* PROFESSIONAL AREA */}
             <a
               href="https://we.cosentino.com/home"
-              onClick={closeMobile}
               className="block border-b border-white/15 py-4 text-[14px]"
+              onClick={closeMobile}
             >
               Professional Area
             </a>
 
-            {/* COUNTRY */}
+            {/* MOBILE COUNTRY */}
             <div>
               <button
                 type="button"
@@ -926,7 +801,6 @@ export default function Header() {
                   <GlobeIcon />
                   {country}
                 </span>
-
                 <Chevron open={mobileSubmenu === "country"} />
               </button>
 
@@ -940,7 +814,7 @@ export default function Header() {
                         setCountry(item);
                         setMobileSubmenu(null);
                       }}
-                      className="block py-2 text-left text-[13px] text-white/75"
+                      className="block py-2 text-[13px] text-white/75"
                     >
                       {item}
                     </button>
