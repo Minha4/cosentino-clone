@@ -743,33 +743,98 @@ export default function Header() {
         )}
 
         {openMenu === "corporate" && (
-          <div
-            className="border-t border-black/10 bg-white text-black shadow-2xl"
-            onMouseEnter={() => setOpenMenu("corporate")}
-          >
-            <div className="mx-auto max-w-[1650px] px-8 py-10">
-              <div className="grid grid-cols-4 gap-5">
-                {corporate.map((item) => (
-                  <a
-                    href="#"
-                    key={item}
-                    className="group border border-neutral-200 p-7 transition-colors duration-300 hover:bg-neutral-50"
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="text-[16px] font-light">
-                        {item}
-                      </span>
-                      <span className="text-neutral-400 transition-transform duration-300 group-hover:translate-x-1">
-                        →
-                      </span>
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </div>
+  <div
+    className="border-t border-black/10 bg-white text-black shadow-2xl"
+    onMouseEnter={() => setOpenMenu("corporate")}
+  >
+    <div className="mx-auto max-w-[1650px] px-8 py-10">
+      <div className="grid grid-cols-4 gap-6">
+
+        {/* ABOUT US */}
+        <a href="#" className="group">
+          <div className="h-[200px] overflow-hidden">
+            <img
+              src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=85"
+              alt="About Us"
+              className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
           </div>
-        )}
+
+          <div className="mt-4 flex items-center justify-between">
+            <h3 className="text-[20px] font-light">
+              About Us
+            </h3>
+
+            <span className="text-neutral-400 transition-transform duration-300 group-hover:translate-x-1">
+              →
+            </span>
+          </div>
+        </a>
+
+        {/* ENVIRONMENTAL POLICY */}
+        <a href="#" className="group">
+          <div className="h-[200px] overflow-hidden">
+            <img
+              src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=900&q=85"
+              alt="Environmental Policy"
+              className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+          </div>
+
+          <div className="mt-4 flex items-center justify-between">
+            <h3 className="text-[20px] font-light">
+              Environmental Policy
+            </h3>
+
+            <span className="text-neutral-400 transition-transform duration-300 group-hover:translate-x-1">
+              →
+            </span>
+          </div>
+        </a>
+
+        {/* WORK WITH US */}
+        <a href="#" className="group">
+          <div className="h-[200px] overflow-hidden">
+            <img
+              src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=900&q=85"
+              alt="Work With Us"
+              className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+          </div>
+
+          <div className="mt-4 flex items-center justify-between">
+            <h3 className="text-[20px] font-light">
+              Work With Us
+            </h3>
+
+            <span className="text-neutral-400 transition-transform duration-300 group-hover:translate-x-1">
+              →
+            </span>
+          </div>
+        </a>
+
+        {/* NEWS */}
+        <a href="#" className="group">
+          <div className="h-[200px] overflow-hidden">
+            <img
+              src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=900&q=85"
+              alt="News"
+              className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+          </div>
+
+          <div className="mt-4 flex items-center justify-between">
+            <h3 className="text-[20px] font-light">
+              News
+            </h3>
+
+            <span className="text-neutral-400 transition-transform duration-300 group-hover:translate-x-1">
+              →
+            </span>
+          </div>
+        </a>
+
       </div>
-    </header>
-  );
-}
+    </div>
+  </div>
+)}
