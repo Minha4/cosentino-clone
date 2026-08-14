@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 
 type Menu =
@@ -11,6 +12,12 @@ type Menu =
   | "corporate"
   | null;
 
+type MenuItem = {
+  name: string;
+  href: string;
+  image: string;
+};
+
 const countries = [
   "USA",
   "United Kingdom",
@@ -20,111 +27,130 @@ const countries = [
   "Australia",
 ];
 
-const brands = [
+const brands: MenuItem[] = [
   {
     name: "Silestone",
+    href: "#",
     image:
       "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=900&q=85",
   },
   {
     name: "Dekton",
+    href: "#",
     image:
       "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=85",
   },
   {
     name: "Sensa",
+    href: "#",
     image:
       "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=900&q=85",
   },
   {
     name: "Scalea",
+    href: "#",
     image:
       "https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=900&q=85",
   },
 ];
 
-const spaces = [
+const spaces: MenuItem[] = [
   {
     name: "Kitchens",
+    href: "/kitchens",
     image:
       "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=85",
   },
   {
     name: "Bathrooms",
+    href: "#",
     image:
       "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1000&q=85",
   },
   {
     name: "Other interiors",
+    href: "#",
     image:
       "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1000&q=85",
   },
   {
     name: "Outdoor",
+    href: "#",
     image:
       "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1000&q=85",
   },
 ];
 
-const inspiration = [
+const inspiration: MenuItem[] = [
   {
     name: "Inspiration Gallery",
+    href: "#",
     image:
       "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1000&q=85",
   },
   {
     name: "Projects",
+    href: "#",
     image:
       "https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=1000&q=85",
   },
   {
     name: "Design Tools",
+    href: "#",
     image:
       "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1000&q=85",
   },
 ];
 
-const professionals = [
+const professionals: MenuItem[] = [
   {
     name: "Services",
+    href: "#",
     image:
       "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1000&q=85",
   },
   {
     name: "Collaborations",
+    href: "#",
     image:
       "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1000&q=85",
   },
   {
     name: "Applications",
+    href: "#",
     image:
       "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1000&q=85",
   },
   {
     name: "Programs",
+    href: "#",
     image:
       "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1000&q=85",
   },
 ];
 
-const corporate = [
+const corporate: MenuItem[] = [
   {
     name: "About Us",
+    href: "#",
     image:
       "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1000&q=85",
   },
   {
     name: "Environmental Policy",
+    href: "#",
     image:
       "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1000&q=85",
   },
   {
     name: "Work With Us",
+    href: "#",
     image:
       "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1000&q=85",
   },
   {
     name: "News",
+    href: "#",
     image:
       "https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=1000&q=85",
   },
@@ -199,7 +225,6 @@ function MobileSection({
         className="flex w-full items-center justify-between py-4 text-left text-sm"
       >
         <span>{title}</span>
-
         <Arrow open={open} />
       </button>
 
@@ -214,32 +239,24 @@ export default function Header() {
   const [mobileMenu, setMobileMenu] = useState<Menu>(null);
   const [country, setCountry] = useState("USA");
 
-  const toggleMenu = (name: Menu) => {
-    setMenu(menu === name ? null : name);
-  };
-
-  const toggleMobileMenu = (name: Menu) => {
-    setMobileMenu(mobileMenu === name ? null : name);
-  };
-
   return (
     <header className="fixed left-0 top-0 z-[100] w-full text-white">
-      {/* DESKTOP */}
+      {/* =========================
+          DESKTOP HEADER
+      ========================== */}
       <div
-        className="hidden bg-gradient-to-b from-black/40 to-transparent px-8 py-6 md:block"
+        className="hidden bg-gradient-to-b from-black/50 to-transparent px-8 py-6 md:block"
         onMouseLeave={() => setMenu(null)}
       >
         <div className="mx-auto flex max-w-[1600px] items-center gap-8">
-
           {/* LOGO */}
-          <a
-            href="https://www.cosentino.com/usa/"
+          <Link
+            href="/"
             className="shrink-0 text-[20px] font-normal tracking-[-0.07em]"
           >
             COSENTINO
-          </a>
+          </Link>
 
-          {/* DIVIDER */}
           <span className="h-5 w-px bg-white/70" />
 
           {/* COUNTRY */}
@@ -250,9 +267,7 @@ export default function Header() {
               className="flex items-center gap-2 text-[12px] transition-opacity hover:opacity-60"
             >
               <GlobeIcon />
-
               <span>{country}</span>
-
               <Arrow open={menu === "country"} />
             </button>
 
@@ -288,28 +303,33 @@ export default function Header() {
             )}
           </div>
 
-          {/* NAV */}
+          {/* NAVIGATION */}
           <nav className="flex flex-1 items-center justify-center gap-7">
-
-            <a
+            <Link
               href="#"
               className="text-[12px] transition-opacity hover:opacity-60"
             >
               Colors
-            </a>
+            </Link>
 
             <button
               type="button"
-              onMouseEnter={() => toggleMenu("brands")}
+              onMouseEnter={() => setMenu("brands")}
               className="flex items-center gap-1 text-[12px] transition-opacity hover:opacity-60"
             >
               Our Brands
               <Arrow open={menu === "brands"} />
             </button>
 
+            {/* SPACES */}
             <button
               type="button"
-              onMouseEnter={() => toggleMenu("spaces")}
+              onMouseEnter={() => setMenu("spaces")}
+              onClick={() =>
+                setMenu((current) =>
+                  current === "spaces" ? null : "spaces"
+                )
+              }
               className="flex items-center gap-1 text-[12px] transition-opacity hover:opacity-60"
             >
               Spaces
@@ -318,23 +338,23 @@ export default function Header() {
 
             <button
               type="button"
-              onMouseEnter={() => toggleMenu("inspiration")}
+              onMouseEnter={() => setMenu("inspiration")}
               className="flex items-center gap-1 text-[12px] transition-opacity hover:opacity-60"
             >
               Inspiration
               <Arrow open={menu === "inspiration"} />
             </button>
 
-            <a
-              href="#"
+            <Link
+              href="/contact"
               className="text-[12px] transition-opacity hover:opacity-60"
             >
               Showrooms
-            </a>
+            </Link>
 
             <button
               type="button"
-              onMouseEnter={() => toggleMenu("professionals")}
+              onMouseEnter={() => setMenu("professionals")}
               className="flex items-center gap-1 text-[12px] transition-opacity hover:opacity-60"
             >
               Professionals
@@ -343,35 +363,42 @@ export default function Header() {
 
             <button
               type="button"
-              onMouseEnter={() => toggleMenu("corporate")}
+              onMouseEnter={() => setMenu("corporate")}
               className="flex items-center gap-1 text-[12px] transition-opacity hover:opacity-60"
             >
               Corporate
               <Arrow open={menu === "corporate"} />
             </button>
-
           </nav>
 
           {/* RIGHT SIDE */}
           <div className="flex shrink-0 gap-6 text-[12px]">
-            <a href="#" className="transition-opacity hover:opacity-60">
+            <Link
+              href="#"
+              className="transition-opacity hover:opacity-60"
+            >
               Where To Buy
-            </a>
+            </Link>
 
-            <a href="#" className="transition-opacity hover:opacity-60">
+            <Link
+              href="#"
+              className="transition-opacity hover:opacity-60"
+            >
               Professional Area
-            </a>
+            </Link>
           </div>
         </div>
 
-        {/* BRANDS */}
+        {/* =========================
+            BRANDS DROPDOWN
+        ========================== */}
         {menu === "brands" && (
           <div className="absolute left-0 top-full w-full bg-white text-black">
             <div className="mx-auto grid max-w-[1600px] grid-cols-4 gap-6 px-8 py-10">
               {brands.map((item) => (
-                <a
+                <Link
                   key={item.name}
-                  href="#"
+                  href={item.href}
                   className="group"
                 >
                   <div className="h-52 overflow-hidden">
@@ -386,54 +413,83 @@ export default function Header() {
                     <span className="text-xl font-light">
                       {item.name}
                     </span>
-
                     <span>→</span>
                   </div>
-                </a>
+                </Link>
               ))}
             </div>
           </div>
         )}
 
-        {/* SPACES */}
+        {/* =========================
+            SPACES DROPDOWN
+        ========================== */}
         {menu === "spaces" && (
-          <div className="absolute left-0 top-full w-full bg-white text-black">
+          <div
+            className="absolute left-0 top-full w-full bg-white text-black"
+            onMouseEnter={() => setMenu("spaces")}
+          >
             <div className="mx-auto grid max-w-[1600px] grid-cols-4 gap-6 px-8 py-10">
-              {spaces.map((item) => (
-                <a
-                  key={item.name}
-                  href="#"
-                  className="group"
-                >
-                  <div className="h-52 overflow-hidden">
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
-                    />
-                  </div>
+              {spaces.map((item) =>
+                item.href.startsWith("/") ? (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    onClick={() => setMenu(null)}
+                    className="group"
+                  >
+                    <div className="h-52 overflow-hidden">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                      />
+                    </div>
 
-                  <div className="mt-4 flex items-center justify-between">
-                    <span className="text-xl font-light">
-                      {item.name}
-                    </span>
+                    <div className="mt-4 flex items-center justify-between">
+                      <span className="text-xl font-light">
+                        {item.name}
+                      </span>
+                      <span>→</span>
+                    </div>
+                  </Link>
+                ) : (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    className="group"
+                  >
+                    <div className="h-52 overflow-hidden">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                      />
+                    </div>
 
-                    <span>→</span>
-                  </div>
-                </a>
-              ))}
+                    <div className="mt-4 flex items-center justify-between">
+                      <span className="text-xl font-light">
+                        {item.name}
+                      </span>
+                      <span>→</span>
+                    </div>
+                  </a>
+                )
+              )}
             </div>
           </div>
         )}
 
-        {/* INSPIRATION */}
+        {/* =========================
+            INSPIRATION DROPDOWN
+        ========================== */}
         {menu === "inspiration" && (
           <div className="absolute left-0 top-full w-full bg-white text-black">
             <div className="mx-auto grid max-w-[1600px] grid-cols-3 gap-6 px-8 py-10">
               {inspiration.map((item) => (
                 <a
                   key={item.name}
-                  href="#"
+                  href={item.href}
                   className="group"
                 >
                   <div className="h-56 overflow-hidden">
@@ -448,7 +504,6 @@ export default function Header() {
                     <span className="text-xl font-light">
                       {item.name}
                     </span>
-
                     <span>→</span>
                   </div>
                 </a>
@@ -457,14 +512,16 @@ export default function Header() {
           </div>
         )}
 
-        {/* PROFESSIONALS */}
+        {/* =========================
+            PROFESSIONALS DROPDOWN
+        ========================== */}
         {menu === "professionals" && (
           <div className="absolute left-0 top-full w-full bg-white text-black">
             <div className="mx-auto grid max-w-[1600px] grid-cols-4 gap-6 px-8 py-10">
               {professionals.map((item) => (
                 <a
                   key={item.name}
-                  href="#"
+                  href={item.href}
                   className="group"
                 >
                   <div className="h-52 overflow-hidden">
@@ -479,7 +536,6 @@ export default function Header() {
                     <span className="text-xl font-light">
                       {item.name}
                     </span>
-
                     <span>→</span>
                   </div>
                 </a>
@@ -488,14 +544,16 @@ export default function Header() {
           </div>
         )}
 
-        {/* CORPORATE */}
+        {/* =========================
+            CORPORATE DROPDOWN
+        ========================== */}
         {menu === "corporate" && (
           <div className="absolute left-0 top-full w-full bg-white text-black">
             <div className="mx-auto grid max-w-[1600px] grid-cols-4 gap-6 px-8 py-10">
               {corporate.map((item) => (
                 <a
                   key={item.name}
-                  href="#"
+                  href={item.href}
                   className="group"
                 >
                   <div className="h-52 overflow-hidden">
@@ -510,7 +568,6 @@ export default function Header() {
                     <span className="text-xl font-light">
                       {item.name}
                     </span>
-
                     <span>→</span>
                   </div>
                 </a>
@@ -520,17 +577,17 @@ export default function Header() {
         )}
       </div>
 
-      {/* MOBILE */}
-      <div className="bg-gradient-to-b from-black/40 to-transparent px-5 py-5 md:hidden">
-
+      {/* =========================
+          MOBILE HEADER
+      ========================== */}
+      <div className="bg-gradient-to-b from-black/50 to-transparent px-5 py-5 md:hidden">
         <div className="flex items-center justify-between">
-
-          <a
-            href="https://www.cosentino.com/usa/"
+          <Link
+            href="/"
             className="text-[19px] tracking-[-0.07em]"
           >
             COSENTINO
-          </a>
+          </Link>
 
           <button
             type="button"
@@ -563,33 +620,36 @@ export default function Header() {
               }`}
             />
           </button>
-
         </div>
 
         {mobileOpen && (
           <div className="mt-4 max-h-[calc(100vh-90px)] overflow-y-auto border-t border-white/20 pt-2">
-
-            <a
+            <Link
               href="#"
               className="block border-b border-white/15 py-4 text-sm"
             >
               Colors
-            </a>
+            </Link>
 
             <MobileSection
               title="Our Brands"
               open={mobileMenu === "brands"}
-              onClick={() => toggleMobileMenu("brands")}
+              onClick={() =>
+                setMobileMenu(
+                  mobileMenu === "brands"
+                    ? null
+                    : "brands"
+                )
+              }
             >
               <div className="grid grid-cols-2 gap-3">
                 {brands.map((item) => (
-                  <a key={item.name} href="#">
+                  <a key={item.name} href={item.href}>
                     <img
                       src={item.image}
                       alt={item.name}
                       className="h-28 w-full object-cover"
                     />
-
                     <p className="mt-2 text-xs">
                       {item.name}
                     </p>
@@ -601,22 +661,52 @@ export default function Header() {
             <MobileSection
               title="Spaces"
               open={mobileMenu === "spaces"}
-              onClick={() => toggleMobileMenu("spaces")}
+              onClick={() =>
+                setMobileMenu(
+                  mobileMenu === "spaces"
+                    ? null
+                    : "spaces"
+                )
+              }
             >
               <div className="grid grid-cols-2 gap-3">
-                {spaces.map((item) => (
-                  <a key={item.name} href="#">
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="h-28 w-full object-cover"
-                    />
+                {spaces.map((item) =>
+                  item.href === "/kitchens" ? (
+                    <Link
+                      key={item.name}
+                      href="/kitchens"
+                      onClick={() => {
+                        setMobileMenu(null);
+                        setMobileOpen(false);
+                      }}
+                    >
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="h-28 w-full object-cover"
+                      />
 
-                    <p className="mt-2 text-xs">
-                      {item.name}
-                    </p>
-                  </a>
-                ))}
+                      <p className="mt-2 text-xs">
+                        {item.name}
+                      </p>
+                    </Link>
+                  ) : (
+                    <a
+                      key={item.name}
+                      href={item.href}
+                    >
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="h-28 w-full object-cover"
+                      />
+
+                      <p className="mt-2 text-xs">
+                        {item.name}
+                      </p>
+                    </a>
+                  )
+                )}
               </div>
             </MobileSection>
 
@@ -624,12 +714,19 @@ export default function Header() {
               title="Inspiration"
               open={mobileMenu === "inspiration"}
               onClick={() =>
-                toggleMobileMenu("inspiration")
+                setMobileMenu(
+                  mobileMenu === "inspiration"
+                    ? null
+                    : "inspiration"
+                )
               }
             >
               <div className="grid grid-cols-1 gap-3">
                 {inspiration.map((item) => (
-                  <a key={item.name} href="#">
+                  <a
+                    key={item.name}
+                    href={item.href}
+                  >
                     <img
                       src={item.image}
                       alt={item.name}
@@ -644,23 +741,30 @@ export default function Header() {
               </div>
             </MobileSection>
 
-            <a
-              href="#"
+            <Link
+              href="/contact"
               className="block border-b border-white/15 py-4 text-sm"
             >
               Showrooms
-            </a>
+            </Link>
 
             <MobileSection
               title="Professionals"
               open={mobileMenu === "professionals"}
               onClick={() =>
-                toggleMobileMenu("professionals")
+                setMobileMenu(
+                  mobileMenu === "professionals"
+                    ? null
+                    : "professionals"
+                )
               }
             >
               <div className="grid grid-cols-2 gap-3">
                 {professionals.map((item) => (
-                  <a key={item.name} href="#">
+                  <a
+                    key={item.name}
+                    href={item.href}
+                  >
                     <img
                       src={item.image}
                       alt={item.name}
@@ -679,12 +783,19 @@ export default function Header() {
               title="Corporate"
               open={mobileMenu === "corporate"}
               onClick={() =>
-                toggleMobileMenu("corporate")
+                setMobileMenu(
+                  mobileMenu === "corporate"
+                    ? null
+                    : "corporate"
+                )
               }
             >
               <div className="grid grid-cols-2 gap-3">
                 {corporate.map((item) => (
-                  <a key={item.name} href="#">
+                  <a
+                    key={item.name}
+                    href={item.href}
+                  >
                     <img
                       src={item.image}
                       alt={item.name}
@@ -717,7 +828,13 @@ export default function Header() {
             <div className="border-b border-white/15">
               <button
                 type="button"
-                onClick={() => toggleMobileMenu("country")}
+                onClick={() =>
+                  setMobileMenu(
+                    mobileMenu === "country"
+                      ? null
+                      : "country"
+                  )
+                }
                 className="flex w-full items-center justify-between py-4 text-sm"
               >
                 <span className="flex items-center gap-2">
@@ -725,7 +842,9 @@ export default function Header() {
                   {country}
                 </span>
 
-                <Arrow open={mobileMenu === "country"} />
+                <Arrow
+                  open={mobileMenu === "country"}
+                />
               </button>
 
               {mobileMenu === "country" && (
@@ -750,7 +869,6 @@ export default function Header() {
                 </div>
               )}
             </div>
-
           </div>
         )}
       </div>
